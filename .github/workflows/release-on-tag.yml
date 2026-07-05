@@ -1,0 +1,24 @@
+name: Release on tag
+
+# The monorepo sync pushes vX.Y.Z tags (deploy keys cannot create GitHub
+# releases); this turns each new tag into the release HACS serves as the
+# stable channel.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create release for tag
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VER="${GITHUB_REF_NAME#v}"
+          gh release create "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" \
+            --title "$VER" \
+            --notes "Component snapshot synced from homeassistant-ai/ha-mcp." || echo "release exists"
