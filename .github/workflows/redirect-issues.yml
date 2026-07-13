@@ -1,7 +1,7 @@
 name: Transfer issues to main repo
 on:
   issues:
-    types: [opened]
+    types: [opened, reopened]
 
 jobs:
   transfer:
@@ -16,7 +16,7 @@ jobs:
         run: |
           gh api graphql \
             -f query='mutation($issueId: ID!, $repoId: ID!) {
-              transferIssue(input: {issueId: $issueId, repositoryId: $repoId, createRedirect: true}) {
+              transferIssue(input: {issueId: $issueId, repositoryId: $repoId}) {
                 issue { url number }
               }
             }' \
