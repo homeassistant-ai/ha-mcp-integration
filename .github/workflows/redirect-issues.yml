@@ -10,4 +10,15 @@ jobs:
       - name: Transfer to homeassistant-ai/ha-mcp
         env:
           GH_TOKEN: ${{ secrets.ISSUE_TRANSFER_TOKEN }}
-        run: gh issue transfer "${{ github.event.issue.number }}" homeassistant-ai/ha-mcp
+          ISSUE_NODE_ID: ${{ github.event.issue.node_id }}
+          # GraphQL node ID of homeassistant-ai/ha-mcp
+          TARGET_REPO_ID: R_kgDOPvq5vQ
+        run: |
+          gh api graphql \
+            -f query='mutation($issueId: ID!, $repoId: ID!) {
+              transferIssue(input: {issueId: $issueId, repositoryId: $repoId, createRedirect: true}) {
+                issue { url number }
+              }
+            }' \
+            -f issueId="$ISSUE_NODE_ID" \
+            -f repoId="$TARGET_REPO_ID"
