@@ -1,0 +1,13 @@
+name: Transfer issues to main repo
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  transfer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Transfer to homeassistant-ai/ha-mcp
+        env:
+          GH_TOKEN: ${{ secrets.ISSUE_TRANSFER_TOKEN }}
+        run: gh issue transfer "${{ github.event.issue.number }}" homeassistant-ai/ha-mcp
