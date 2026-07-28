@@ -2766,9 +2766,11 @@ async def _shape_read_file_response(
     # Apply special handling for specific files
     normalized = os.path.normpath(rel_path)  # noqa: ASYNC240
 
-    # Mask secrets.yaml
+    # Mask secrets.yaml. Offloaded because the first make_yaml() call on a
+    # thread constructs a ruamel YAML instance, whose plugin discovery globs
+    # the site-packages tree — blocking work that must stay off the loop.
     if normalized == "secrets.yaml":
-        content = _mask_secrets_content(content)
+        content = await hass.async_add_executor_job(_mask_secrets_content, content)
 
     # Apply tail for log files
     if normalized == "home-assistant.log":
@@ -3091,8 +3093,12 @@ def _build_get_caller_token_handler(
         # uses everywhere else.
         try:
             integration = await async_get_integration(hass, DOMAIN)
+            if integration.version is None:
+                # Reads as None rather than raising; an unreadable version and
+                # an absent one deserve the same answer.
+                raise ValueError("the manifest carries no version")
             version = str(integration.version)
-        except Exception as exc:  # pragma: no cover — manifest sanity
+        except Exception as exc:
             _LOGGER.warning(
                 "Could not read ha_mcp_tools manifest version for "
                 "get_caller_token response: %s",
@@ -3574,10 +3580,17 @@ async def _async_setup_tools_entry(hass: HomeAssistant, entry: ConfigEntry) -> b
     component_version = COMPONENT_VERSION
     try:
         integration = await async_get_integration(hass, DOMAIN)
+        if integration.version is None:
+            # A manifest without a version reads as None rather than raising,
+            # and ``str()`` would put the literal "None" on the device.
+            raise ValueError("the manifest carries no version")
         component_version = str(integration.version)
     except Exception as err:
         _LOGGER.debug(
-            "Could not read the component version for the tools device: %s", err
+            "Could not read the component version for the tools device, using "
+            "the compiled-in %s: %s",
+            COMPONENT_VERSION,
+            err,
         )
     dr.async_get(hass).async_get_or_create(
         config_entry_id=entry.entry_id,
