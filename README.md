@@ -8,7 +8,8 @@ which syncs this repository automatically.
 - **Stable**: install the latest release (default in HACS).
 - **Development**: enable this repository's **Pre-release** switch in HACS
   (an entity HACS creates per downloaded repository, disabled by default)
-  to receive `-dev.N` pre-release builds. This may not update automatically between pre-release versions but should show updates to next stable versions when they come out. You may also open the menu in HACS, select "redownload", select "need a different version" and pick whichever pre-release version you would like to test. Change the chanel to "development" in the custom component settings as well to fully test all new features.
+  to receive `-dev.N` pre-release builds. Their new features may require a
+  newer server and only become fully usable with the next stable release.
 
 Please open issues and pull requests on the
 [main repository](https://github.com/homeassistant-ai/ha-mcp/issues) -
