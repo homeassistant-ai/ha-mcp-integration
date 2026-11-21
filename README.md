@@ -32,7 +32,7 @@ this mirror carries no hand-made changes.
   <!-- mcp-name: io.github.homeassistant-ai/ha-mcp -->
 
   <p align="center">
-    <img src="https://img.shields.io/badge/tools-86-blue" alt="86 Tools">
+    <img src="https://img.shields.io/badge/tools-87-blue" alt="87 Tools">
     <a href="https://github.com/homeassistant-ai/ha-mcp/releases"><img src="https://img.shields.io/github/v/release/homeassistant-ai/ha-mcp" alt="Release"></a>
     <a href="https://github.com/homeassistant-ai/ha-mcp/actions/workflows/e2e-tests.yml"><img src="https://img.shields.io/github/actions/workflow/status/homeassistant-ai/ha-mcp/e2e-tests.yml?branch=master&label=E2E%20Tests" alt="E2E Tests"></a>
     <a href="https://github.com/homeassistant-ai/ha-mcp/blob/master/LICENSE"><img src="https://img.shields.io/github/license/homeassistant-ai/ha-mcp.svg" alt="License"></a>
@@ -237,7 +237,7 @@ Spend less time configuring, more time enjoying your smart home.
 | **🔍 Search** | Fuzzy entity search, deep config search, system overview |
 | **🏠 Control** | Any service, bulk device control, real-time states |
 | **🔧 Manage** | Automations, scripts, helpers, [dashboards](https://github.com/homeassistant-ai/ha-mcp/blob/master/docs/dashboard-edits.md), areas, zones, groups, calendars, blueprints |
-| **📊 Monitor** | History, statistics, camera snapshots, automation traces, ZHA devices |
+| **📊 Monitor** | History, statistics, camera snapshots and image entities, automation traces, ZHA devices |
 | **💾 System** | Backup/restore, updates, apps, device registry |
 | **🔒 Safety** | Read Only Mode toggle, per-tool enable/disable, tool security policies (user approval), automatic edit backups |
 
@@ -250,7 +250,7 @@ If the original entry has been deleted, restore recreates the helper and reports
 <details>
 <!-- TOOLS_TABLE_START -->
 
-<summary><b>Complete Tool List (86 tools)</b></summary>
+<summary><b>Complete Tool List (87 tools)</b></summary>
 
 | Category | Tools |
 |----------|-------|
@@ -271,7 +271,7 @@ If the original entry has been deleted, restore recreates the helper and reports
 | **Groups** | `ha_config_list_groups`, `ha_config_remove_group`, `ha_config_set_group` |
 | **HACS** | `ha_get_hacs_info`, `ha_manage_hacs` |
 | **Helper Entities** | `ha_config_list_helpers`, `ha_config_set_helper`, `ha_remove_helpers_integrations` |
-| **History & Statistics** | `ha_get_automation_traces`, `ha_get_history`, `ha_get_logs` |
+| **History & Statistics** | `ha_get_automation_traces`, `ha_get_history`, `ha_get_logs`, `ha_manage_logs` |
 | **Integrations** | `ha_get_integration`, `ha_get_system_health`, `ha_set_integration` |
 | **Labels & Categories** | `ha_config_get_category`, `ha_config_get_label`, `ha_config_remove_category`, `ha_config_remove_label`, `ha_config_set_category`, `ha_config_set_label` |
 | **Matter** | `ha_manage_radio` |
